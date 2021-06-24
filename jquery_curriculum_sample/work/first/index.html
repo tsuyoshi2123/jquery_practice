@@ -1,0 +1,346 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>jQuery</title>
+<link rel="stylesheet" href="../../common/css/reset.css">
+<link rel="stylesheet" href="../../common/css/base.css">
+<link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+<div class="wrapper">
+  <h1 class="title">jQuery</h1>
+  <h2 class="sub-title">Q1</h2>
+  <div class="question">
+    <div class="btn" id="q1">Q1</div>
+  </div>
+  <h2 class="sub-title">Q2</h2>
+  <div class="question">
+    <div class="btn" id="q2">Q2</div>
+  </div>
+  <h2 class="sub-title">Q3</h2>
+  <div class="question">
+    <div class="btn" id="q3">Q3</div>
+  </div>
+  <h2 class="sub-title">Q4</h2>
+  <div class="question">
+    <div class="btn" id="q4">Q4</div>
+  </div>
+  <h2 class="sub-title">Q5</h2>
+  <div class="question">
+    <div class="btn" id="q5">Q5</div>
+  </div>
+  <h2 class="sub-title">Q6</h2>
+  <div class="question">
+    <div class="btn" id="q6">Q6</div>
+  </div>
+  <h2 class="sub-title">Q7</h2>
+  <div class="question">
+    <ul class="list" id="q7">
+      <li>Q7-1</li>
+      <li>Q7-2</li>
+      <li>Q7-3</li>
+      <li>Q7-4</li>
+    </ul>
+  </div>
+  <h2 class="sub-title">Q8</h2>
+  <div class="question">
+    <div class="btn" id="q8">Q8</div>
+  </div>
+  <h2 class="sub-title">Q9</h2>
+  <div class="question">
+    <div class="btn" id="q9" data-text="jQuery">Q9</div>
+  </div>
+  <h2 class="sub-title">Q10</h2>
+  <div class="question">
+    <ul class="list" id="q10">
+      <li>Q10-1</li>
+      <li>Q10-2</li>
+      <li>Q10-3</li>
+    </ul>
+    <ul class="list" id="q11">
+      <li>Q11-1</li>
+      <li>Q11-2</li>
+      <li>Q11-3</li>
+    </ul>
+  </div>
+</div>
+<script src="../../common/js/jquery.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- CDN 負荷分散 表示の分散化 -->
+<script>
+// メソッド一覧
+// .click クリックすると発生する
+// .prepend　中左 .append中右 .before外左 .after外右 
+// .addClass　クラス付与
+// .find 指定されたDOM要素から引数に渡された要素を要素を取ってくれる ul→li を詳細化する時に使う
+// .index その要素は何番目の要素か教えてくれるメソッド
+// .remove クラス 要素　など対象要素を消去してくれる
+// .eq(num) DOM要素の引数の値に等しい番号のDOMを指定する。
+// .on 指定要素の追加に対応できる
+// click 指定メソッド内のみに適用される
+// function jquery
+// 
+
+// 便利機能
+// $(this)  親要素のDOMの指定
+// fadeOut(2000) fadeout　消えるやつ
+// ('large')
+// alert() 子画面(ダイアログ)を表示させるを表示させる
+
+
+// 命名規則
+// 【キャラメルケース】　 単語の先頭を大文字にする命名規則
+// 【スネークケース】　   単語の間をアンダーバーでつなぐ命名規則　DBなどで扱われる値に使用されることが多いようです。
+// 【ケバブケース】　     単語の間をハイフンでつなぐ命名規則です。HTMLではclass名であったり、ファイル名などでもよく見かけます。
+
+// Q1宿題
+// javascriptの基本的な型を覚える
+// 文字列　数字 配列 オブジェクト 真偽値
+
+
+// function jquery　なぜあるのか
+// answer 予約状態、又はHTMLの読み込みが完了してからjQueryの操作を開始するようにという指定です。
+
+// Q1findとchildrenの違い
+// answer [find] 詳細度を上げたいときに時に使用する　[children] 指定要素の兄弟要素に使用する
+
+// onメソッドとclickメソッドの違い
+// answer [onメソッド] 指定要素の追加に対応できる [clickメソッド]　指定メソッドのみ適用される
+
+
+// Q5宿題
+// allの場合eachを使わずに表示できる
+// 105　function引数をthisを使わずに eachていう関数にthisを使わずに繰り返し処理で表示させる
+
+// ==と===の違いどう違うか使い方　[優先度 == 低い　=== 高い]
+// answer
+// == 等価演算子 右辺と左辺の値が同じだった場合
+// === 厳密等価演算子 両端の値と型が同じだった場合
+
+
+// allの場合eachを使わずに表示できる
+// 105function引数をthisを使わずに eachていう関数にthisを使わずに
+// ==と===の違いどう違うか使い方優先度
+
+
+// Q4
+// .hover(関数, 関数) 要素の上にマウスカーソルが乗ると第1引数の関数を実行し、マウスカーソルから離れると第2引数の関数を実行します。
+// .slideDown() 要素がスライドしながら表示されます。
+// .slideUp() 要素がスライドしながら非表示されます。
+// .next() 要素の隣の要素を取得します。これは使わなくてもできます。
+// .children() 要素の子要素(兄弟要素)を取得します。
+// .stop() 現在動作中のアニメーション処理を全て中止します。
+
+// Q5
+// .show() 要素を表示させる
+// .hide() 要素を隠す
+// .val() 要素のvalueを取得
+// .data('') DOM要素にあるdata-~を取得できる
+// .change() セレクトボックスの値の変更をキャッチする関数
+// $().each() DOM要素を1つずつループ処理をする（ループ内で$(this)を使うと要素がひとつずつ取得できる）
+
+
+// Q10
+// .before .afterの違い 指定要素の直前(before),直後(after)に内容を追加
+// .html  要素直下に表示させる
+// .empty 指定要素の子要素のみ全て消去する
+// .remove 対象になる要素とその中にある子要素を全て消去する
+// .before指定要素の直前に内容を追加
+// .disabled 
+// .addClass 指定セレクタにクラスを付与する
+// return false     イベント処理の中断    return(関数内で処理をした結果を「戻り値」として返す) 
+// document javascriptでdocumentオブジェクトを使用することでhtmlに簡易的にアクセスすることができる
+
+
+// 調べたこと
+// GET 情報を検索したり取得する時に使用する
+// POSR 登録処理や更新処理  入力された情報をデータに登録したい時 既存のデータに新しい情報を更新処理したい時
+// HTTP サーバとクライアント間のやりとり
+// プロトコル 
+// プロトコルが違う finder使用する時
+// サーバー ・何かを提供する 
+//        ・ネットワークを通じて他の端末に提供するコンピュータ
+
+// クライアント ・提供を受けるもの 
+//   ・クライアントからリクエストにサーバが応じて情報を提供する
+
+// ローカルサーバー 
+//     家にあるパソコンをサーバーがわりにする
+
+// プロトコル 
+//     通信するための手段
+
+// API ソフトウェアの機能を共有できるようになった
+// ソフトウェアとは コンピュータを動かすプログラム
+
+// 楽天として ID
+// リクエスト時にAPIを飛ばす
+
+// 4/28
+// 書き直し
+// 組み直した
+// GET 情報を検索したり取得する時に使用する 調べる
+// applicartion urlの情報を取得できる [ユーザを識別する]
+
+
+// ーーーーー指摘ーーーーー
+// httpリクエスト
+// エラー内容 400 429 
+// ajax全般流れ
+// 楽天ドキュメント仕様を確認する→入力パラメータにpageCountを使用していた為
+// if文の使用方法if文をその場で2つ使用している → if elseif で使い分けをした
+// グローバル関数とは → 関数外から使用できる
+// GETの情報
+// json とは
+
+
+// 指摘回答
+// ーーーhttpリクエスト レスポンス 流れーーー
+// https://itsakura.com/network-http-get-post
+//  1 クライアントがブラウザでurlを入力
+//  2 クライアントがサーバにhttpリクエスト(url情報)を送信
+//  3 クライアントから送られてきた「httpリクエスト」に対応する「httpレスポンス」をクライアント側のpcに送信
+//  4 クライアン側のwebブラウザにpcでwebページを表示します。
+
+//  ーーー通信に失敗した時エラー内容 400 429---
+//  400番 構文が無効になった時のエラー
+//  429番 ユーザーが大量リクエストを送った時のエラー
+ 
+//  100番台 情報
+//  200番台 正常(成功した)処理
+//  300番台 リダイレクト関連
+//  400番台 クライアント側のエラー
+//  500番台 サーバー側のエラー
+// スコープ(変数や関数を利用できる有効範囲)ローカル変数とグローバル変数
+
+
+// ---Ajax----
+// 
+
+
+
+
+// DOMとは HTMLやXMLなどのドキュメントをエディタ上のプログラムから利用するAPI
+// XMLとは HTMLホームページ専用 XMLデータのやりとり設定ファイルを書く時
+// $(function() { }); DOMが準備されてからjQueryを実行するおまじない。
+
+
+// 第1問  id='q1'の要素の文字色を赤色にせよ。
+// Jquery $('セレクタ').css('プロパティ','値')
+  $(function() {
+    // id='q1'要素が色が赤くなる
+    // jqueryオブジェクトのセレクタを指定してcssのプロパティと値が実行される
+    $('#q1').css('color','red');
+   
+// 第2問  id='q2'の要素をクリックしたら背景色をピンクにせよ。
+    // 1 id='q2'要素をクリックしたら実行され
+    $('#q2').click(function() {
+      // 親要素のセレクタのcssオブジェクトが呼び出されプロパティと値が実行される
+      $(this).css('background-color', 'cadetblue')
+    });
+
+// .clickメソッドは()の中に関数をかくと指定した要素をクリックした後にその関数を実行してくれる
+// $(this)　この記述の前に指定されたDOMを指定する⇦この場合指定しているのは$('#q2')のこと
+// .clickした時に関数が呼び出されて$('this')によってDOM呼び出ししてCSSを付与してあげる
+
+// 第3問  id='q3'の要素をクリックしたら2秒かけてフェードアウトさせよ。
+    // !セレクタをクリックすることでfadeOut引数が呼び出され
+    $('#q3').click(fadeOut)
+    // !フェードアウト関数が呼び出され
+    function fadeOut() {
+    // !親要素のセレクタを指定して2秒かけてフェードアウトする
+      $(this).fadeOut(2000);
+    }
+// 第4問  id='q4'の要素をクリックしたらこの要素の前後とこの要素内の前後にテキストを挿入せよ。
+    // !セレクタをクリックすることで関数が実行される
+    $('#q4').click(function() {
+      // ！親要素のセレクタにメソッド関数を実行テキストをブラウザ場で表示する
+      $(this).prepend('DOMの中の前')
+             .append('DOMの中の後')
+             .before('DOMの前')
+             .after('DOMの後');
+    });
+    // メソッドチェイン → $("セレクタ").メソッド().メソッド().メソッド().…
+// 第5問  id='q5'の要素をクリックしたらこの要素にlargeというクラスを付与せよ。
+    // 1 クリックしたらメソッド内の関数が呼び出される
+    // !セレクタをクリックした時に関数が実行され
+    $('#q5').click(function() {
+      // 2 id='q5'にクラス付与する cssが入っている場合適用できる
+      // ！親要素セレクタにaddClassでクラスを付与する
+      $(this).addClass('large');
+    });
+// 第6問  id='q6'の要素をクリックしたらこの要素を2秒かけてmargin-topとmargin-leftを100pxの位置に移動させよ。
+    // 1 クリックしたらメソッド内の関数が呼び出される
+    // ！セレクタをクリックした時に関数が実行され
+    $('#q6').click(function() {
+      // 2 animateメソッドが呼び出される
+      // 3 animate内の引数2つを関数に受け渡す
+      // ！親要素セレクタをanimateメソッドのオブジェクト内の第一引数とオブジェクト外の第二引数を呼び出し。
+      $(this).animate({
+        'marginLeft': 100,
+        'marginTop': 100
+      }, 2000);
+    });
+//  .animate( 属性 [,期間] [,イージング] [,function] )
+// ・属性：変更したいcss属性をObjectオブジェクトで指定
+// ・期間：目的の値までの期間をミリ秒で指定
+// ・イージング：アニメの加速度のタイプを指定
+// ・function：アニメの完了後に実行するコールバックを指定
+
+// 第7問  id='q7'の子要素をクリックしたら、その要素のインデックス（何番目か）をconsole.log()とalert()を用いて表示させよ。
+    // ul → liをクリックした時に関数が呼び出される
+    // ！セレクタの子要素をクリックしたことで関数が実行され
+    $('#q7').find('li').click(function() {
+      // 前DOMのindex番号を呼び出し
+      // !親要素のセレクタのクリックした要素の番号を変数に代入する
+      var targetNum = $(this).index();
+      // index番号の呼び出し
+      // 呼び出し
+      // ！変数に代入されているindex番号を取り出す子画面で表示する
+      alert(targetNum);
+    })
+
+    // index()その要素の何番目か教えてくれるメソッド
+    // var〜変数定義する宣言です ここでは
+// 第8問  id='q8'の要素をhoverしたらlargeというクラスを付与し、hoverが外れたら、クラスを削除せよ。
+    // !hoverすると関数が実行され
+    $('#q8').hover(function() {
+      // hoverしたらクラス付与で大きくなる(クラスについているCSSは要素の大きくなるのがついている)
+      // !親要素のセレクタにaddClassでクラスが付与される
+      $(this).addClass('large');
+    }, function() {
+      // hover(関数, 関数)の場合はhoverした後に第一引数の関数がhoverした時に実行され、hoverが離れた時に第二引数を実行します。
+      // 親要素のセレクタにaddClassでクラスが削除される
+      $(this).removeClass('large');
+    });
+
+
+// 第9問  id='q9'の要素をクリックしたらこの要素に設定してあるdata属性をconsoleに表示せよ。
+    // クリックしたら関数が呼び出される
+    // !セレクタをクリックした時に関数が実行される
+    $('#q9').click(function() {
+      // text変数内に代入されている.data()で取得することができる
+      // 指定クラス内のdata-text内の情報を取得
+      // ！親要素のセレクタクラスの情報を変数に代入する
+      var text = $(this).data('text');
+      // console.logでdata情報を表示
+      console.log(text);
+    });
+
+// 第10問 id='q10'の子要素をクリックしたら、その要素のインデックスと等しいid='q11'の子要素にlargeというクラスを追加せよ。
+    // クリックしたら関数が呼び出される
+    // !セレクタのタグのliをクリックすることで関数が実行される
+    $('#q10').find('li').click(function() {
+      // 代入されているインデックス番号をnum変数に代入する
+      var num = $(this).index();
+      // id=q11,liのDOM要素の引数の値に等しい番号のDOMを指定('large')する。
+      // eq() その要素のindex番号を指定してクラスを付与する
+      $('#q11').find('li').eq(num).addClass('large');
+    });
+});
+</script>
+</body>
+</html>

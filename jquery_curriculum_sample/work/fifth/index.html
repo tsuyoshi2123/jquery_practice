@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>jQuery</title>
+    <link rel="stylesheet" href="../../common/css/reset.css">
+    <link rel="stylesheet" href="../../common/css/base.css">
+    <link rel="stylesheet" href="./css/style.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="contents">
+        <p class="title">Frameworks</p>
+        <div class="select-wrapper">
+          <select class="select">
+            <option value="all">All</option>
+            <option value="css">CSS</option>
+            <option value="javascript">JavaScript</option>
+            <option value="php">PHP</option>
+            <option value="ruby">Ruby</option>
+            <option value="python">Python</option>
+            <option value="scala">Scala</option>
+          </select>
+        </div>
+        <ul class="list">
+          <li data-category-type="css">
+            <a href="http://getbootstrap.com/" class="article">
+              <i class="article-icon is-bootstrap"></i>
+              <p class="article-name">Bootstrap</p>
+            </a>
+          </li>
+          <li data-category-type="ruby">
+            <a href="http://rubyonrails.org/" class="article">
+              <i class="article-icon is-ruby-on-rails"></i>
+              <p class="article-name">Ruby on Rails</p>
+            </a>
+          </li>
+          <li data-category-type="php">
+            <a href="https://phalconphp.com/ja/" class="article">
+              <i class="article-icon is-phalcon"></i>
+              <p class="article-name">Phalcon</p>
+            </a>
+          </li>
+          <li data-category-type="javascript">
+            <a href="https://facebook.github.io/react/" class="article">
+              <i class="article-icon is-react"></i>
+              <p class="article-name">React</p>
+            </a>
+          </li>
+          <li data-category-type="scala">
+            <a href="https://www.playframework.com/" class="article">
+              <i class="article-icon is-play"></i>
+              <p class="article-name">Play</p>
+            </a>
+          </li>
+          <li data-category-type="javascript">
+            <a href="http://aurelia.io/" class="article">
+              <i class="article-icon is-aurelia"></i>
+              <p class="article-name">Aurelia</p>
+            </a>
+          </li>
+          <li data-category-type="python">
+            <a href="http://djangoproject.jp/" class="article">
+              <i class="article-icon is-django"></i>
+              <p class="article-name">Django</p>
+            </a>
+          </li>
+          <li data-category-type="css">
+            <a href="http://www.material-ui.com/#/" class="article">
+              <i class="article-icon is-material-ui"></i>
+              <p class="article-name">Material UI</p>
+            </a>
+          </li>
+          <li data-category-type="php">
+            <a href="https://laravel.com/" class="article">
+              <i class="article-icon is-laravel"></i>
+              <p class="article-name">Laravel</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <script src="../../common/js/jquery.js"></script>
+    <script>
+      // 1 セレクタを指定した時に関数が発生する
+      // 2 セレクタで選択されたvalueがvに代入される
+      // 3 変数名の値がALLと同じだった場合全表示される
+      // 4 liタグ内に第二引数の情報が変数と同じだった場合表示
+      // 5 同じじゃない場合非表示
+      // 6 取得した要素を繰り返し処理で一つずつ取り出して表示させる
+
+      $(".select").change(function(){ // .change()使用
+        var v = $(this).val(); // .val()使用
+        if(v == "all"){
+              $('ul.list li').show(); // .show
+        } else {
+          $('ul.list li').each(function( index, list ){
+            console.log(index)
+            console.log(list)
+            console.log(index,list)
+            if($(list).data("category-type") == v){ // .data()使用
+              $(list).show(); // .show()使用
+            } else {
+              $(list).hide(); // .hide()使用
+            }
+          });
+        }
+      });
+
+      // $(function() {
+      //   $(".select").change(function() {
+      //     var opClick = $(this).val();
+      //     if(opClick === "all") {
+      //       $(".list").find("li").show();
+      //     }else{
+      //       $(".list").find ("li").each(function(index, list) {
+      //         if($(list).data("category-type")===opClick) {
+      //           $(list).show();
+      //         }else{
+      //           $(list).hide();
+      //         };
+      //     });
+      //   };
+      // })
+      // })
+
+      
+
+      // dom操作をなるべくなくす少なくする
+      // 変数　
+      
+    //  105 if($(this).data("category-type") == v){ // .data()使用
+    // $('ul.list li').each(function(){ // .each()使用
+
+    // 宿題
+    // 
+    // function jquery　なぜあるのか
+    // answer 予約状態、又はHTMLの読み込みが完了してからjQueryの操作を開始するようにという指定です。
+    // HTMLを生成していない状態で読みこまれる
+
+    // Q1findとchildrenの違い
+    // answer [find] 詳細かしたい時に使用する　[children] 指定要素の兄弟要素に使用する
+    // find 指定要素の孫要素ひ孫要素を全取得してしまう を指定したいときに  children直下の要素
+
+    // onメソッドとclickメソッドの違い
+    // answer [onメソッド] 指定要素の追加に対応できる [clickメソッド]　指定メソッドのみ適用される
+    // on 動的に追加されたdomでもアクションを起こすことができる 
+    // click HTML内にもともと記述させないと適用されない
+
+    // allの場合eachを使わずに表示できる
+    // 105　function引数をthisを使わずに eachていう関数にthisを使わずに繰り返し処理で表示させる
+    // ==と===の違いどう違うか使い方　優先度 ==が高い　===低め
+    // == 等価演算子 右辺と左辺の値が同じだった場合 変換をして比較する
+    //  === 厳密等価演算子 両端の値と型が同じだった場合 
+
+    // javascriptの基本的な型を覚える
+    // 文字列　数字 配列 オブジェクト 真偽値
+
+    
+    // 今回やるのはソート機能です。
+    // selectボックスをクリックして言語を選び、その言語と関係のあるリストだけが表示されるプログラムです。
+    // [処理の流れ]
+    // ・セレクトボックスをクリックする。
+    // ・セレクトボックスのvalueとliのdata-category-typeが一致しているものをだけ表示させる。
+    // ・Allを選択した場合のみ全てのliを表示させる。
+    // [使うメソッド]
+    // .show() 要素を表示させる
+    // .hide() 要素を隠す
+    // .val() 要素内のvalueを取得する
+    // .data('') DOM要素にあるdata-~を取得できる
+    // .change() セレクトボックスの値の変更をキャッチする関数
+    // $().each() DOM要素を1つずつループ処理をする（ループ内で$(this)を使うと要素がひとつずつ取得できる）
+    </script>
+  </body>
+</html>

@@ -1,0 +1,222 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>jQuery</title>
+    <link rel="stylesheet" href="../../common/css/reset.css">
+    <link rel="stylesheet" href="../../common/css/base.css">
+    <link rel="stylesheet" href="./css/style.css">
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="container">
+        <div class="header">
+          <p class="header__title">Search Books!</p>
+        </div>
+        <div class="search">
+          <div class="search__text">
+            <input type="text" id="js-search-word" class="search__text__input" placeholder="検索する">
+          </div>
+          <button id="js-search-button" class="search__btn">検索する</button>
+        </div>
+        <ul class="lists"></ul>
+      </div>
+    </div>
+    <script src="../../common/js/jquery.js"></script>
+    <script>
+  $(function() {
+    // 読み込み時に実行させたいのをかく
+    // onページが読み込ませてからHTMLに対して能力を付与する
+    // 定義系のものはdocument.redyの外にだす
+    // console.logが複数発動してる
+    // ------イベントクリック-----
+    $('.search__btn').on('click', function() {
+      word = $('.search__text__input').val();
+      first_serch();    // --1-- 前へ関数を呼び出し return false
+    });
+
+    $(document).on('click','.next' ,function() { // return false ⇦ 関数呼び出しでページトップに動かしたい為関数呼び出しで同じ動きする データ読み込みはさせない   HTML要素に簡単にアクセスできる
+      if ( count === pageCount ) { // ページ総数になった場合
+        countup_select();
+      } else if ( count < pageCount ) {  //ページ総数以下の場合+1表示
+        count = count + 1;
+        do_ajax();
+      };
+    });
+
+    $(document).on('click','.prev', function() { //return false ⇦ 関数呼び出しだと動いてしまう為イベントクリック時の処理内にreturnfalse
+      if ( count === 1 ){
+        return false;
+      } else if ( count >= 2 ) {
+        count = count - 1;
+        do_ajax();
+      };
+    });
+  });
+
+  // ------セレクター分岐-------
+  function first_serch() { // 最初のページ
+    $('.lists').empty();
+    count = 1;
+    do_ajax();
+  };
+
+  function countup_select() { // 次へ押した時挙動
+    $('.message').remove();
+    request_message('これ以上ありません');
+    return false;
+  };
+
+  // ------ajax ---------
+  var pageCount = '';  // 102行目 do_ajaxで出力パラメータのpageCountを代入する
+  function do_ajax() {
+    $.ajax({
+      // 共有パラメータ
+      url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20130522', // Ajaxリクエストを送信するURLを指定
+      type: 'GET',      // type httpリクエストを指定する 送信形式
+      datatype: 'json', // javascriptデータのやりとりする為のデータ形式
+      data: { // 楽天クエリパラメータ
+        // 「区分:サービス固有パラメーター」を確認して、必要な情報をdata内に入れましょう。
+        applicationId: '1019399324990976605', // (今回はこのIDを使用してください) ※IDは他サイト等には絶対に転載しないでください
+        booksGenreId: '001',
+        keyword: word,
+        hits: 20,
+        page: count,
+      },
+    }).done(done).fail(fail); // 見やすくする為とコメントアウトで通信の成功・失敗の関数とメッセージを分けて見やすくする為
+  };
+
+  //-------done 分岐 ----------
+  function done(done) {
+    $('.js-pager').remove();
+    $('.message').remove();
+    operation_pager(done);
+    pageCount = done.pageCount;  // 出力パラメータを外で使いたい
+    if ( done.pageCount === 1 ) {  // 検索結果総数が1ページのみの時
+      $('.next, .prev').addClass('disabled');
+    } else if ( done.page === 0 ) { // 長さが0の時
+      empty_message();   // 検索結果見つからない メッセージ表示
+    };
+  };
+
+  //-------fail 分岐-------
+  function fail(fail) { //クライアントエラーレスポンス
+    $('.message').remove();
+    if ( fail.status === 400 ) { // 構文エラーー
+      request_message('検索文字が空、もしくは半角英数1文字になっています');
+    }else if ( fail.status === 429 ) { // 一定時間の間大量のリクエストを送信した
+      request_message('予期せぬエラーが発生しました。');
+    } else if ( fail.status === 0 ) { //  ネットが切れた時
+      request_message('通信に失敗しました。インターネットの接続をご確認ください');
+    } else {
+      request_message('そのほかのエラーが発生しました');
+    };
+  };
+
+  // ------通信成功時disabled分岐------
+  function operation_pager(pg) {
+    books(pg.Items);
+    pager(pg);
+  };
+
+  // ------通信成功時 本 ページネーション--------
+  function books(result) {
+    var show__books = '';
+    console.log(result)
+    $.each(result,function (index,show) {
+      show__books +=  '<li class=lists__item>'+
+                        '<div class=lists__item__inner>'+
+                          '<a href=' + show.Item.itemUrl + ' class=lists__item__link target=_blank>' +
+                            '<img src= ' + show.Item.largeImageUrl + ' class=lists__item__img' + ' alt= >'+
+                            '<p class=lists__item__detail>作品名：' + show.Item.title +'</p>'+
+                            '<p class=lists__item__detail>作者&emsp;：' + show.Item.author +'</p>'+
+                            '<p class=lists__item__detail>出版社：' + show.Item.publisherName + '</p>'+
+                          '</a>'+
+                        '</div>'+
+                      '</li>';
+    });
+    $('.lists').html(show__books);
+  };
+
+  function pager(pg) {
+    $('.lists').after(
+      '<div class=js-pager>'+
+        '<ul class=btn-wrapper>'+
+          '<li class="prev btn-item" >'+'<a class= btn-anchor href= "#">前へ</a>'+'</li>'+
+          '<li class="next btn-item" >'+'<a class= btn-anchor href= "#">次へ</a>'+'</li>'+
+        '</ul>'+
+      '</div>'
+    );
+
+    $('.prev, .next').removeClass('disabled');
+    if ( pg.page <= 1 ) {
+      $('.prev').addClass('disabled');
+    } else if ( pg.page === pg.pageCount ) {
+      $('.next').addClass('disabled');
+      return false;
+    };
+  };
+
+  // -------メッセージ表示-------
+  function request_message(error) {
+    $('.search').after('<p class= message>'+ error + '</p>');
+  };
+
+  // 楽天ブックスの総合検索APIを使って製作してください。
+  // answerの挙動を良く見てね！
+  //
+  // 下記URLにAPIの仕様が載ってるいので、ブラウザで開いて参考にしてください。
+  // https://webservice.rakuten.co.jp/api/bookstotalsearch/
+  //
+  //
+  // [使うメソッド]
+  // $.each(配列, function functionName() {}) 配列に対しての繰り返し処理
+  // $.ajax({}) 外部ファイルやURLに対してデータをリクエストすることができます。
+  // 以下は今回使う$.ajaxの基本的な形です。
+  //
+  // $.ajax({
+  //   url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20130522',
+  //   type: 'GET',
+  //   datatype: 'json',
+  //   data: {
+  //     // 「区分:サービス固有パラメーター」を確認して、必要な情報をdata内に入れましょう。
+  //     applicationId: '1019399324990976605', // (今回はこのIDを使用してください) ※IDは他サイト等には絶対に転載しないでください
+  //     booksGenreId: '001'
+  //   },
+  // }).done(function(data) {
+  //   // この中にデータ取得後の動きを記述していきます。
+  //   console.log(data);
+  // });
+  //
+  //
+  // $.ajaxによってデータが取得できたら、必要なデータ(作品名とか作者名とか)を取得します。
+  // 取得できたらHTMLに<ul class='lists'></ul>を用意しているので、下のテンプレに沿ってデータを入れ込みましょう。
+  // <li class='lists__item'>
+  //  <div class='lists__item__inner'>
+  //    <a href='' class='lists__item__link' target='_blank'>
+  //      <img src='' class='lists__item__img' alt=''>
+  //      <p class='lists__item__detail'>作品名：</p>
+  //      <p class='lists__item__detail'>作者：</p>
+  //      <p class='lists__item__detail'>出版社：</p>
+  //    </a>
+  //  </div>
+  // </li>
+  //
+  // 取得できた書籍の件数をもとに、ページャを作成しましょう
+  // ページャの条件
+  // ├ 「前へ」と「次へ」のボタンがある
+  // ├ 1ページ目では「前へ」に、最後のページでは「次へ」にdisabledクラスをつけて非活性（使用不能）にする
+  // └ 1ページしかない場合はどちらもdisabledクラスをつけて非活性にする
+  // 
+  // ページャのテンプレート
+  // <div class="js-pager">
+  //   <ul class="btn-wrapper">
+  //     <li class="prev btn-item"><a class="btn-anchor" href="">前へ</a></li>
+  //     <li class="next btn-item"><a class="btn-anchor" href="">次へ</a></li>
+  //   </ul>
+  // </div>
+</script>
+</body>
+</html>
